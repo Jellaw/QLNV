@@ -59,14 +59,11 @@ public class RegisterAccountActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(view -> {
 
             Account account = new Account(sizeAcc+1,username.getText().toString(),password.getText().toString());
-            Log.v("size", ""+sizeAcc);
             Call<Account> callAcc = jsonPlaceHolderApiACC.createAcc(account);
             callAcc.enqueue(new Callback<Account>() {
                 @Override
                 public void onResponse(Call<Account> call, Response<Account> response) {
                     Toast.makeText(getApplicationContext(), "Thêm tài khoản thành công!", Toast.LENGTH_LONG).show();
-                    onBackPressed();
-                    finish();
                 }
 
                 @Override
@@ -76,6 +73,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
             });
             Intent intent = new Intent(RegisterAccountActivity.this, RegisterEmplActivity.class);
             intent.putExtra("create_acc_id", sizeAcc+1);
+            Log.v("size", ""+sizeAcc);
             startActivity(intent);
             // close splash activity
             finish();

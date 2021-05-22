@@ -62,6 +62,8 @@ public class RegisterEmplActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Employee> call, Response<Employee> response) {
                     Toast.makeText(getApplicationContext(), "Thêm thông tin thành công!", Toast.LENGTH_LONG).show();
+                    onBackPressed();
+                    finish();
                 }
 
                 @Override
