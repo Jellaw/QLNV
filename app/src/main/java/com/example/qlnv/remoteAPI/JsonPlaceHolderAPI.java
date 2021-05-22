@@ -3,9 +3,7 @@ import com.example.qlnv.Activity.model.Account;
 import com.example.qlnv.Activity.model.Employee;
 
 import java.util.List;
-
 import retrofit2.Call;
-
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;

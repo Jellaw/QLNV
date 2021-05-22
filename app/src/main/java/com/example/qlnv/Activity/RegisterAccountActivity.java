@@ -29,6 +29,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
     List<Account> accs;
     int sizeAcc=0;
     Button saveBtn;
+    JsonPlaceHolderAPI jsonPlaceHolderApiACC;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,21 +39,8 @@ public class RegisterAccountActivity extends AppCompatActivity {
                 .baseUrl("http://192.168.31.38:8080/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        JsonPlaceHolderAPI jsonPlaceHolderApiACC = retrofitAcc.create(JsonPlaceHolderAPI.class);
-        Call<List<Account>> getSizeAcc = jsonPlaceHolderApiACC.getAcc();
-        getSizeAcc.enqueue(new Callback<List<Account>>() {
-            @Override
-            public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
-                accs = response.body();
-                for (Account acc : accs) {
-                    sizeAcc=acc.getId();
-                    Log.v("size", ""+sizeAcc);
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Account>> call, Throwable t) {
-            }
-        });
+        jsonPlaceHolderApiACC = retrofitAcc.create(JsonPlaceHolderAPI.class);
+        getIDforNewAcc();
         backBtn.setOnClickListener(view -> {
             onBackPressed();
         });
@@ -72,7 +60,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
                 }
             });
             Intent intent = new Intent(RegisterAccountActivity.this, RegisterEmplActivity.class);
-            intent.putExtra("create_acc_id", sizeAcc+1);
+            intent.putExtra("create_acc_id", ""+(sizeAcc+1));
             Log.v("size", ""+sizeAcc);
             startActivity(intent);
             // close splash activity
@@ -84,5 +72,21 @@ public class RegisterAccountActivity extends AppCompatActivity {
         username=findViewById(R.id.editTextUsername);
         password=findViewById(R.id.editTextPass);
         saveBtn=findViewById(R.id.saveBtn);
+    }
+    private void getIDforNewAcc(){
+        Call<List<Account>> getSizeAcc = jsonPlaceHolderApiACC.getAcc();
+        getSizeAcc.enqueue(new Callback<List<Account>>() {
+            @Override
+            public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
+                accs = response.body();
+                for (Account acc : accs) {
+                    sizeAcc=acc.getId();
+                    Log.v("size", ""+sizeAcc);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Account>> call, Throwable t) {
+            }
+        });
     }
 }

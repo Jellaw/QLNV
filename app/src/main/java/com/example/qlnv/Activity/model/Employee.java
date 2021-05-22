@@ -1,6 +1,5 @@
 package com.example.qlnv.Activity.model;
 
-import java.util.Date;
 
 public class Employee {
     private int id;
@@ -15,7 +14,7 @@ public class Employee {
     private Double salary;
     private int AccountID;
 
-    public Employee(String name, String dob, int age, String gender, String email, String address, String phone, String position,double salary, int accountID) {
+    public Employee(String name, String dob, int age, String gender, String email, String address, String phone, String position,double salary, int AccountID) {
         this.name = name;
         this.dob = dob;
         this.age = age;
@@ -25,7 +24,7 @@ public class Employee {
         this.phone = phone;
         this.position = position;
         this.salary = salary;
-        this.AccountID = accountID;
+        this.AccountID = AccountID;
     }
 
     public int getId() {

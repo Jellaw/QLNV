@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -16,6 +17,9 @@ import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,7 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterEmplActivity extends AppCompatActivity {
-    EditText name, phone, email, age, dob, address,salary;
+    EditText name, phone, email, age, dob, address,salary,idAcc;
     RadioButton male, female, employee, manager;
     RadioGroup gender, position;
     String genderInfor,posInfor;
@@ -35,6 +39,9 @@ public class RegisterEmplActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_empl);
         init();
+        i = getIntent();
+        idAcc.setText(i.getStringExtra("create_acc_id"));
+        idAcc.setEnabled(false);
         backBtn.setOnClickListener(view -> {
             onBackPressed();
         });
@@ -45,7 +52,6 @@ public class RegisterEmplActivity extends AppCompatActivity {
                     .build();
             JsonPlaceHolderAPI jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderAPI.class);
             getInforFromRadioButton();
-            i = getIntent();
             Employee empl = new Employee(
                     name.getText().toString(),
                     dob.getText().toString(),
@@ -56,7 +62,7 @@ public class RegisterEmplActivity extends AppCompatActivity {
                     phone.getText().toString(),
                     posInfor,
                     Double.parseDouble(salary.getText().toString()),
-                    i.getIntExtra("create_acc_id",0));
+                    Integer.parseInt(idAcc.getText().toString()));
             Call<Employee> call = jsonPlaceHolderApi.createEmpl(empl);
             call.enqueue(new Callback<Employee>() {
                 @Override
@@ -74,8 +80,9 @@ public class RegisterEmplActivity extends AppCompatActivity {
         });
     }
     private void init(){
+        idAcc=findViewById(R.id.editTextIDAcc);
         save=findViewById(R.id.SaveText);
-        name=findViewById(R.id.editTextnName);
+        name=findViewById(R.id.editTextName);
         phone=findViewById(R.id.editTextPhone);
         email=findViewById(R.id.editTextEmail);
         age=findViewById(R.id.editTextAge);
@@ -98,17 +105,5 @@ public class RegisterEmplActivity extends AppCompatActivity {
         int posid=position.getCheckedRadioButtonId();
         RadioButton radioBtn = (RadioButton) findViewById(posid);
         posInfor=radioBtn.getText().toString();
-    }
-    private void checkEditText(){
-        if (name.getText().toString()!=""&&address.getText().toString()!=""&&
-                dob.getText().toString()!=""&&salary.getText().toString()!=""&&
-                age.getText().toString()!=""&&phone.getText().toString()!=""&&
-                email.getText().toString()!="") {
-            save.setEnabled(true);
-            save.setTextColor(Color.parseColor("#FF4CAF50"));
-        } else {
-            save.setEnabled(false);
-            save.setTextColor(Color.parseColor("#4A4747"));
-        }
     }
 }
