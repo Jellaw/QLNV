@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.RegisterEmplActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/register_acc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/RegisterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="Đăng kí"
+            android:textColor="#0B0A0A"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/back_btn_empl"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back2" />
+
+        <TextView
+            android:id="@+id/SaveText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="Lưu"
+            android:textColor="#4CAF50"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_acc">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextnName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bovien"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bovien"
+                android:ems="10"
+                android:hint="Phone"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bovien"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/editTextAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bovien"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/editDOB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bovien"
+                android:ems="10"
+                android:hint="Date of Birth"
+                android:inputType="datetime"
+                android:padding="10dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/editAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bovien"
+                android:ems="10"
+                android:hint="Address"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/editSalary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bovien"
+                android:ems="10"
+                android:hint="Salary"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textSize="20dp" />
+
+            <RadioGroup
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bovien"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="Gender: "
+                    android:textColor="@color/black"
+                    android:textSize="20dp">
+
+                </TextView>
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50dp"
+                    android:text="Nữ" />
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Nam" />
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/rg_pos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bovien"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="Position: "
+                    android:textColor="@color/black"
+                    android:textSize="20dp">
+
+                </TextView>
+
+                <RadioButton
+                    android:id="@+id/radioNV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:checked="true"
+                    android:text="Nhân viên" />
+
+                <RadioButton
+                    android:id="@+id/radioQL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="Quản lí" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
