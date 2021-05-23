@@ -1,4 +1,4 @@
-package com.example.qlnv.ui.slideshow;
+package com.example.qlnv.ui.aboutus;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.qlnv.R;
 
-public class SlideshowFragment extends Fragment {
+public class AboutUsFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
 

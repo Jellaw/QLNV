@@ -1,4 +1,4 @@
-package com.example.qlnv.ui.gallery;
+package com.example.qlnv.ui.statistics;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

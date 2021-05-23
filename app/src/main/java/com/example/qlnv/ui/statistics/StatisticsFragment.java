@@ -1,4 +1,4 @@
-package com.example.qlnv.ui.gallery;
+package com.example.qlnv.ui.statistics;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.qlnv.R;
 
-public class GalleryFragment extends Fragment {
+public class StatisticsFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
 

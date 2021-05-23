@@ -1,4 +1,4 @@
-package com.example.qlnv.ui.slideshow;
+package com.example.qlnv.ui.aboutus;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
