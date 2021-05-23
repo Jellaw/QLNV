@@ -59,6 +59,14 @@
                 android:layout_margin="2dp"
                 android:text="address"
                 android:textColor="#000000" />
+            <TextView
+                android:id="@+id/emplPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="position"
+                android:textColor="#000000" />
+
         </LinearLayout>
     </LinearLayout>
 

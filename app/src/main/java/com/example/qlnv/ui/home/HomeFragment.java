@@ -23,6 +23,7 @@ import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
 import com.example.qlnv.ui.home.Adapter.ListEmployeeAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
                 employeeList= response.body();
-                initRecyclerViewUserChat();
+                initRecyclerView(employeeList);
             }
             @Override
             public void onFailure(Call<List<Employee>> call, Throwable t) {
@@ -66,20 +67,16 @@ public class HomeFragment extends Fragment {
             }
         });
         getAll.setOnClickListener(view1 -> {
-            call.enqueue(new Callback<List<Employee>>() {
-                @Override
-                public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-                    employeeList= response.body();
-                    initRecyclerViewUserChat();
-                }
-                @Override
-                public void onFailure(Call<List<Employee>> call, Throwable t) {
-
-                }
-            });
+            initRecyclerView(employeeList);
         });
         search.setOnClickListener(view1 -> {
-
+            List<Employee> itemSearch = new ArrayList<>();
+            for (Employee employee : employeeList){
+                if (edtSearchEmpl.getText().toString().equals(""+employee.getId())){
+                    itemSearch.add(employee);
+                }
+            }
+            initRecyclerView(itemSearch);
         } );
     }
 
@@ -89,10 +86,10 @@ public class HomeFragment extends Fragment {
         getAll=v.findViewById(R.id.getAllBtn);
         rv_listEmpl=v.findViewById(R.id.rv_empl);
     }
-    private void initRecyclerViewUserChat() {
+    private void initRecyclerView(List<Employee> employees) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_listEmpl.setLayoutManager(layoutManager);
-        ListEmployeeAdapter adapter = new ListEmployeeAdapter(employeeList, getContext());
+        ListEmployeeAdapter adapter = new ListEmployeeAdapter(employees, getContext());
         rv_listEmpl.setAdapter(adapter);
     }
 }
