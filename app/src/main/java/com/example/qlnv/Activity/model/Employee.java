@@ -5,26 +5,24 @@ public class Employee {
     private int id;
     private String name;
     private String dob;
-    private int age;
+    private int accid;
     private String gender;
     private String email;
     private String address;
     private String phone;
     private String position;
     private Double salary;
-    private int AccountID;
 
-    public Employee(String name, String dob, int age, String gender, String email, String address, String phone, String position,double salary, int AccountID) {
+    public Employee(String name, String dob, int accid, String gender, String email, String address, String phone, String position,double salary) {
         this.name = name;
         this.dob = dob;
-        this.age = age;
+        this.accid = accid;
         this.gender = gender;
         this.email = email;
         this.address = address;
         this.phone = phone;
         this.position = position;
         this.salary = salary;
-        this.AccountID = AccountID;
     }
 
     public int getId() {
@@ -51,12 +49,12 @@ public class Employee {
         this.dob = dob;
     }
 
-    public int getAge() {
-        return age;
+    public int getAccid() {
+        return accid;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAccid(int accid) {
+        this.accid = accid;
     }
 
     public String getGender() {
@@ -107,11 +105,4 @@ public class Employee {
         this.salary = salary;
     }
 
-    public int getAccountID() {
-        return AccountID;
-    }
-
-    public void setAccountID(int accountID) {
-        AccountID = accountID;
-    }
 }

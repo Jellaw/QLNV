@@ -55,14 +55,13 @@ public class RegisterEmplActivity extends AppCompatActivity {
             Employee empl = new Employee(
                     name.getText().toString(),
                     dob.getText().toString(),
-                    Integer.parseInt(age.getText().toString()),
+                    Integer.parseInt(idAcc.getText().toString()),
                     genderInfor,
                     email.getText().toString(),
                     address.getText().toString(),
                     phone.getText().toString(),
                     posInfor,
-                    Double.parseDouble(salary.getText().toString()),
-                    Integer.parseInt(idAcc.getText().toString()));
+                    Double.parseDouble(salary.getText().toString()));
             Call<Employee> call = jsonPlaceHolderApi.createEmpl(empl);
             call.enqueue(new Callback<Employee>() {
                 @Override
@@ -85,7 +84,6 @@ public class RegisterEmplActivity extends AppCompatActivity {
         name=findViewById(R.id.editTextName);
         phone=findViewById(R.id.editTextPhone);
         email=findViewById(R.id.editTextEmail);
-        age=findViewById(R.id.editTextAge);
         dob=findViewById(R.id.editDOB);
         address=findViewById(R.id.editAddress);
         male=findViewById(R.id.radioMale);
