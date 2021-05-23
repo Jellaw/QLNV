@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 
 public interface JsonPlaceHolderAPI {
@@ -18,4 +19,6 @@ public interface JsonPlaceHolderAPI {
     Call<Account> createAcc(@Body Account account);
     @POST("contact/")
     Call<Employee> createEmpl(@Body Employee employee);
+    @GET("contact/{id}")
+    Call<Employee> searchEmpl(@Path("id") int id);
 }
