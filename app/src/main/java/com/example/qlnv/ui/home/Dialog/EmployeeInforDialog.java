@@ -1,8 +1,12 @@
 package com.example.qlnv.ui.home.Dialog;
 
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +18,8 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.example.qlnv.Activity.LoginActivity;
+import com.example.qlnv.Activity.MainActivity;
+import com.example.qlnv.Activity.RegisterEmplActivity;
 import com.example.qlnv.Activity.model.Account;
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
@@ -32,10 +38,8 @@ public class EmployeeInforDialog extends Dialog {
     int checkGender;
     public Context context;
     Employee employee;
-
     ImageView accImg, reloadImg, editImg, delImg,avaEmpl;
     TextView dob, phone, salary,name;
-
     public EmployeeInforDialog(@NonNull Context context, int checkGender, Employee employee) {
         super(context);
         this.context = context;
@@ -74,8 +78,60 @@ public class EmployeeInforDialog extends Dialog {
         salary.setText(employee.getSalary().toString());
         name.setText(employee.getName());
 
+        editImg.setOnClickListener(view -> {
+            OpenDialogClicked(context);
+        });
+        reloadImg.setOnClickListener(view -> {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.168.31.38:8080/api/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            JsonPlaceHolderAPI jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderAPI.class);
+
+            Call<Employee> call = jsonPlaceHolderApi.searchEmpl(employee.getId());
+            call.enqueue(new Callback<Employee>() {
+                @Override
+                public void onResponse(Call<Employee> call, Response<Employee> response) {
+                    Employee newEmployee = response.body();
+                    dob.setText(newEmployee.getDob());
+                    phone.setText(newEmployee.getPhone());
+                    salary.setText(newEmployee.getSalary().toString());
+                    name.setText(newEmployee.getName());
+                }
+                @Override
+                public void onFailure(Call<Employee> call, Throwable t) {
+
+                }
+            });
+        });
+        accImg.setOnClickListener(view -> {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.168.31.38:8080/api/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            JsonPlaceHolderAPI jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderAPI.class);
+            Call<Account> call = jsonPlaceHolderApi.searchAcc(employee.getAccid());
+            call.enqueue(new Callback<Account>() {
+                @Override
+                public void onResponse(Call<Account> call, Response<Account> response) {
+                    Account accountInfor = response.body();
+                    Toast.makeText(getContext(), "Username: "+accountInfor.getUsername()+", "
+                            +"Password: "+accountInfor.getPassword(), Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(Call<Account> call, Throwable t) {
+
+                }
+            });
+        });
     }
-    private void buttonDoneClick()  {
-        this.dismiss();
+    private void OpenDialogClicked(Context context)  {
+        EditEmployeeDialog dialog_sucess = new EditEmployeeDialog (context, employee) ;
+        dialog_sucess.getWindow().setGravity(Gravity.CENTER_HORIZONTAL);
+        dialog_sucess.show();
+        dialog_sucess.setCancelable(false);
     }
 }

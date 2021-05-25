@@ -13,6 +13,7 @@ import com.example.qlnv.Activity.model.Account;
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
+import com.example.qlnv.ui.home.Dialog.EmployeeInforDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView navigationView;
     Intent i;
-    int accid=2;
+    int accid;
+    EmployeeInforDialog employeeInforDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         initHeaderNavigation(hView);
         setSupportActionBar(toolbar);
         //================================================================================================
+        i = getIntent();
+        accid = i.getIntExtra("Acc_id",0);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         //================================================================================================
-//        accid=i.getIntExtra("Acc_id",0);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.31.38:8080/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override

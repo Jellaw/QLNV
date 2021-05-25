@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bovien"
         android:orientation="vertical"
-        android:padding="30dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.582"
@@ -23,10 +23,10 @@
             android:id="@+id/txtNameinfor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="Duy"
-            android:textSize="40dp"
+            android:textSize="30dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,12 +43,11 @@
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2">
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -99,14 +98,13 @@
 
         <LinearLayout
             android:id="@+id/linearLayout6"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:weightSum="4"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
             <ImageView
                 android:id="@+id/accInforImg"
@@ -115,6 +113,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/calendar_circle"
+                android:padding="10dp"
                 app:srcCompat="@drawable/ic_baseline_verified_user_24" />
 
             <ImageView
@@ -124,6 +123,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/refresh_circle"
+                android:padding="10dp"
                 app:srcCompat="@drawable/ic_baseline_refresh_24" />
 
             <ImageView
@@ -133,6 +133,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/edit_circle"
+                android:padding="10dp"
                 app:srcCompat="@drawable/ic_baseline_edit_24" />
 
             <ImageView
@@ -142,6 +143,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/del_circle"
+                android:padding="10dp"
                 app:srcCompat="@drawable/ic_baseline_delete_24" />
         </LinearLayout>
 
@@ -152,23 +154,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.14" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.22" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/empAvaInfor"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_margin="50dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:background="@drawable/botron"
         android:backgroundTint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

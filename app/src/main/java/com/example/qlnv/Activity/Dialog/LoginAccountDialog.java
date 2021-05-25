@@ -69,7 +69,7 @@ public class LoginAccountDialog extends Dialog {
                         String username = inputUsername.getText().toString();
                         String pass = inputPassword.getText().toString();
                         for (Account acc : accs) {
-                            if (username.equalsIgnoreCase(acc.getUsername())&&pass.equalsIgnoreCase(acc.getPassword())){
+                            if (username.equals(acc.getUsername())&&pass.equals(acc.getPassword())){
                                 Toast.makeText(getContext(), "Login thành công!", Toast.LENGTH_LONG).show();
                                 loginActivity.check=1;
                                 acc_id=acc.getId();

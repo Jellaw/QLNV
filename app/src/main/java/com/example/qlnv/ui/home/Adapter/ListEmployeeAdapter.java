@@ -23,8 +23,7 @@ import java.util.List;
 public class ListEmployeeAdapter extends RecyclerView.Adapter<ListEmployeeAdapter.Viewholder> {
     List<Employee> listEmpl;
     Context context;
-    int checkGender=0,accid,empID;
-    String nameEmpl;
+    int checkGender=0;
     Employee employee;
     public ListEmployeeAdapter(List<Employee> listEmpl, Context context) {
         this.listEmpl = listEmpl;

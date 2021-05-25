@@ -67,7 +67,23 @@ public class HomeFragment extends Fragment {
             }
         });
         getAll.setOnClickListener(view1 -> {
-            initRecyclerView(employeeList);
+            Call<List<Employee>> call2 = jsonPlaceHolderApi.getEmployee();
+            List<Employee> toRemove = new ArrayList<>();
+            for (Employee employee:employeeList){
+                toRemove.add(employee);
+            }
+            employeeList.removeAll(toRemove);
+            call2.enqueue(new Callback<List<Employee>>() {
+                @Override
+                public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+                    employeeList= response.body();
+                    initRecyclerView(employeeList);
+                }
+                @Override
+                public void onFailure(Call<List<Employee>> call, Throwable t) {
+
+                }
+            });
         });
         search.setOnClickListener(view1 -> {
             List<Employee> itemSearch = new ArrayList<>();
