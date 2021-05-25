@@ -5,6 +5,7 @@ import com.example.qlnv.Activity.model.Employee;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -26,4 +27,6 @@ public interface JsonPlaceHolderAPI {
     Call<Account> searchAcc(@Path("id") int id);
     @PUT("contact/{id}")
     Call<Employee> putEmpl(@Path("id") int id, @Body Employee employee);
+    @DELETE("contact/{id}")
+    Call<Void> deleteEmpl(@Path("id") int id);
 }

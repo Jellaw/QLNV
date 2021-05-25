@@ -127,11 +127,36 @@ public class EmployeeInforDialog extends Dialog {
                 }
             });
         });
+        delImg.setOnClickListener(view -> {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.168.31.38:8080/api/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            JsonPlaceHolderAPI jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderAPI.class);
+
+            Call<Void> call = jsonPlaceHolderApi.deleteEmpl(employee.getId());
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Toast.makeText(getContext(), "Đã xóa nhân viên này khỏi server! Vui lòng reload lại danh sách!", Toast.LENGTH_LONG).show();
+                    buttonDoneClick();
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+
+                }
+            });
+        });
     }
     private void OpenDialogClicked(Context context)  {
         EditEmployeeDialog dialog_sucess = new EditEmployeeDialog (context, employee) ;
         dialog_sucess.getWindow().setGravity(Gravity.CENTER_HORIZONTAL);
         dialog_sucess.show();
         dialog_sucess.setCancelable(false);
+    }
+    private void buttonDoneClick()  {
+        this.dismiss();
     }
 }

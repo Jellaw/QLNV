@@ -1,13 +1,17 @@
 package com.example.qlnv.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.qlnv.Activity.Dialog.CreateNewEmpDialog;
 import com.example.qlnv.Activity.Dialog.LoginAccountDialog;
 import com.example.qlnv.Activity.model.Account;
 import com.example.qlnv.Activity.model.Employee;
@@ -18,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -60,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               OpenDialogClicked();
             }
         });
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -125,5 +129,31 @@ public class MainActivity extends AppCompatActivity {
         accName = (TextView)v.findViewById(R.id.accName);
         accGmail = (TextView)v.findViewById(R.id.accGmail);
         avaView = (ImageView) v.findViewById(R.id.avaView);
+    }
+    private void Logout(){
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_logout: Logout();
+        }
+        return true;
+    }
+    private void OpenDialogClicked()  {
+        CreateNewEmpDialog dialog_sucess = new CreateNewEmpDialog (this, MainActivity.this) ;
+        dialog_sucess.getWindow().setGravity(Gravity.CENTER_HORIZONTAL);
+        dialog_sucess.show();
+        dialog_sucess.setCancelable(false);
+    }
+    public void gotoRegisterAcitivity() {
+             Intent intent0 = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, RegisterAccountActivity.class);
+            startActivity(intent0);
+            startActivity(intent);
+            finish();
     }
 }
