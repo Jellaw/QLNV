@@ -61,12 +61,14 @@
             app:cornerRadius="20dp"
             app:icon="@drawable/com_facebook_button_login_logo" />
 
-        <Button
+        <com.google.android.gms.common.internal.SignInButtonImpl
             android:id="@+id/btnLoginGoogle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/bovien"
             android:backgroundTint="#FFFFFF"
+            android:drawableStart="@drawable/ic_google_icon"
             android:paddingStart="50dp"
             android:paddingTop="10dp"
             android:paddingEnd="70dp"

@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.qlnv.Activity.Dialog.CreateNewEmpDialog;
 import com.example.qlnv.Activity.Dialog.LoginAccountDialog;
 import com.example.qlnv.Activity.model.Account;
@@ -18,11 +20,21 @@ import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
 import com.example.qlnv.ui.home.Dialog.EmployeeInforDialog;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -39,7 +51,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private ImageView avaView;
     private TextView accName;
     private TextView accGmail;
@@ -50,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     Intent i;
     int accid;
-    EmployeeInforDialog employeeInforDialog;
+    private GoogleApiClient googleApiClient;
+    private GoogleSignInOptions gso;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +137,16 @@ public class MainActivity extends AppCompatActivity {
          fab = findViewById(R.id.fab);
          drawer = findViewById(R.id.drawer_layout);
          navigationView = findViewById(R.id.nav_view);
+
+        gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleApiClient=new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
     }
     private void initHeaderNavigation(View v){
         accName = (TextView)v.findViewById(R.id.accName);
@@ -155,5 +178,50 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent0);
             startActivity(intent);
             finish();
+    }
+
+
+    //login google===========================================================================================
+    @Override
+    public void onStart() {
+        super.onStart();
+        OptionalPendingResult<GoogleSignInResult> opr= Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        if(opr.isDone()){
+            GoogleSignInResult result=opr.get();
+            handleSignInResult(result);
+        }else{
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result){
+        if(result.isSuccess()){
+            GoogleSignInAccount account=result.getSignInAccount();
+            accName.setText(account.getDisplayName());
+            accGmail.setText(account.getEmail());
+            try{
+                Glide.with(this).load(account.getPhotoUrl()).into(avaView);
+            }catch (NullPointerException e){
+                Toast.makeText(this,"image not found",Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+    @Override
+    public void onPause() {//fix error: Already managing a GoogleApiClient with id 0
+        super.onPause();
+        googleApiClient.stopAutoManage(this);
+        googleApiClient.disconnect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
