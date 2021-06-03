@@ -6,4 +6,9 @@
         android:orderInCategory="100"
         android:title="Logout"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share"
+        android:orderInCategory="100"
+        android:title="Share app"
+        app:showAsAction="never" />
 </menu>

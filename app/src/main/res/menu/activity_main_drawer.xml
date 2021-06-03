@@ -16,5 +16,9 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_baseline_child_care_24"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_baseline_chat_24"
+            android:title="@string/menu_chat" />
     </group>
 </menu>

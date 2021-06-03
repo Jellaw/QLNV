@@ -1,11 +1,11 @@
 package com.example.qlnv.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -13,12 +13,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +35,7 @@ public class RegisterEmplActivity extends AppCompatActivity {
     TextView save;
     Intent i;
     ImageView backBtn;
+    DatePickerDialog datePickerDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,25 @@ public class RegisterEmplActivity extends AppCompatActivity {
         idAcc.setEnabled(false);
         backBtn.setOnClickListener(view -> {
             onBackPressed();
+        });
+        dob.setOnClickListener(v -> {
+            // TODO Auto-generated method stub
+            // calender class's instance and get current date , month and year from calender
+            final Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR); // current year
+            int mMonth = c.get(Calendar.MONTH); // current month
+            int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+            // date picker dialog
+            datePickerDialog  = new DatePickerDialog(RegisterEmplActivity.this, new DatePickerDialog.OnDateSetListener() {
+
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    // TODO Auto-generated method stub
+                    dob.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+                }
+            }, mYear, mMonth, mDay);
+            datePickerDialog.show();
         });
         save.setOnClickListener(view -> {
             Retrofit retrofit = new Retrofit.Builder()

@@ -3,15 +3,20 @@
     package="com.example.qlnv">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".Activity.NotificationApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QLNV.Main">
-        <activity android:name=".Activity.RegisterEmplActivity"></activity>
+        <activity android:name=".Activity.ChattingActivity"></activity>
+        <activity android:name=".Activity.RegisterEmplActivity" />
         <activity
             android:name=".Activity.RegisterAccountActivity"
             android:theme="@style/Theme.QLNV.Register" />
@@ -29,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 
 </manifest>

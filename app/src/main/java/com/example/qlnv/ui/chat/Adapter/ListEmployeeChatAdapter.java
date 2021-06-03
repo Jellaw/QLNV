@@ -1,7 +1,8 @@
-package com.example.qlnv.ui.home.Adapter;
+package com.example.qlnv.ui.chat.Adapter;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,24 +14,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.qlnv.Activity.ChattingActivity;
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
+import com.example.qlnv.ui.home.Adapter.ListEmployeeAdapter;
 import com.example.qlnv.ui.home.Dialog.EmployeeInforDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
-public class ListEmployeeAdapter extends RecyclerView.Adapter<ListEmployeeAdapter.Viewholder> {
+public class ListEmployeeChatAdapter extends RecyclerView.Adapter<ListEmployeeChatAdapter.Viewholder> {
     List<Employee> listEmpl;
     List<Employee> listEmplSearch = new ArrayList<>();
     Context context;
     int checkGender=0;
     Employee employee;
-    public ListEmployeeAdapter(List<Employee> listEmpl, Context context) {
+    int accid;
+    public ListEmployeeChatAdapter(List<Employee> listEmpl, Context context, int accid) {
         this.listEmpl = listEmpl;
         this.context = context;
+        this.accid = accid;
         this.listEmplSearch.addAll(listEmpl);
     }
 
@@ -66,12 +70,17 @@ public class ListEmployeeAdapter extends RecyclerView.Adapter<ListEmployeeAdapte
         holder.tv_position.setText("Chức vụ: "+listEmpl.get(position).getPosition());
 
 
-
+        int idEmpl = listEmpl.get(position).getId();
+        String nameUser = listEmpl.get(position).getName();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                employee = listEmpl.get(position);
-                OpenDialogClicked(context);
+                Intent intent = new Intent(context, ChattingActivity.class);
+                holder.itemView.setBackgroundColor(Color.parseColor("#80EDEAEA"));
+                intent.putExtra("idEmpl",""+ idEmpl);
+                intent.putExtra("nameUser", nameUser);
+                intent.putExtra("accid",""+ accid);
+                context.startActivity(intent);
             }
         });
     }
@@ -96,13 +105,6 @@ public class ListEmployeeAdapter extends RecyclerView.Adapter<ListEmployeeAdapte
             tv_position=itemView.findViewById(R.id.emplPosition);
         }
     }
-    private void OpenDialogClicked(Context context)  {
-        EmployeeInforDialog dialog_sucess = new EmployeeInforDialog (context, checkGender, employee) ;
-        dialog_sucess.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog_sucess.getWindow().setGravity(Gravity.CENTER_HORIZONTAL);
-        dialog_sucess.show();
-        dialog_sucess.setCancelable(true);
-    }
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         listEmpl.clear();
@@ -117,5 +119,4 @@ public class ListEmployeeAdapter extends RecyclerView.Adapter<ListEmployeeAdapte
         }
         notifyDataSetChanged();
     }
-
 }

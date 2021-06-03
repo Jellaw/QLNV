@@ -2,7 +2,10 @@ package com.example.qlnv.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -19,6 +22,7 @@ import com.example.qlnv.Activity.model.Account;
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
+import com.example.qlnv.ui.chat.ChatFragment;
 import com.example.qlnv.ui.home.Dialog.EmployeeInforDialog;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private DrawerLayout drawer;
     private NavigationView navigationView;
     Intent i;
-    int accid;
+    public int accid;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
     @Override
@@ -108,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         accName.setText(employee.getName());
                     }
                 }
-
             }
 
             @Override
@@ -116,7 +119,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
             }
         });
+        avaView.setOnClickListener(view -> {
+            Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(gallery, 1);
+        });
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            Uri imageUri = data.getData();
+            Glide.with(this)
+                    .load(imageUri)
+                    .centerCrop()
+                    .into(avaView);
+        }
     }
 
     @Override
@@ -158,11 +175,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
         finish();
     }
+    private void shareApp(){
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        /*This will be the actual content you wish you share.*/
+        String shareBody = "Quản lý nhân viên - Mạnh Duy";
+        /*The type of the content is text, obviously.*/
+        intent.setType("text/plain");
+        /*Applying information Subject and Body.*/
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareBody);
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        /*Fire!*/
+        startActivity(Intent.createChooser(intent, shareBody));
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_logout: Logout();
+            case R.id.action_share: shareApp();
         }
         return true;
     }

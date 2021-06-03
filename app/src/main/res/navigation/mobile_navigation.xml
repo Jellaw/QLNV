@@ -22,4 +22,9 @@
         android:name="com.example.qlnv.ui.aboutus.AboutUsFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.example.qlnv.ui.chat.ChatFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>

@@ -1,20 +1,15 @@
 package com.example.qlnv.ui.home;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.style.AlignmentSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,12 +27,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeFragment extends Fragment {
-    EditText edtSearchEmpl;
-    Button search, getAll;
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
+    Button  getAll;
     RecyclerView rv_listEmpl;
     List<Employee> employeeList;
-
+    androidx.appcompat.widget.SearchView searchView;
+    ListEmployeeAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -85,27 +80,30 @@ public class HomeFragment extends Fragment {
                 }
             });
         });
-        search.setOnClickListener(view1 -> {
-            List<Employee> itemSearch = new ArrayList<>();
-            for (Employee employee : employeeList){
-                if (edtSearchEmpl.getText().toString().equals(""+employee.getId())){
-                    itemSearch.add(employee);
-                }
-            }
-            initRecyclerView(itemSearch);
-        } );
+        searchView.setOnQueryTextListener(this);
     }
 
     private void init(View v){
-        edtSearchEmpl = v.findViewById(R.id.edtSearchEmpl);
-        search = v.findViewById(R.id.SearchEmpBtn);
         getAll=v.findViewById(R.id.getAllBtn);
         rv_listEmpl=v.findViewById(R.id.rv_empl);
+        searchView = v.findViewById(R.id.searchEmpl);
     }
     private void initRecyclerView(List<Employee> employees) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_listEmpl.setLayoutManager(layoutManager);
-        ListEmployeeAdapter adapter = new ListEmployeeAdapter(employees, getContext());
+        adapter = new ListEmployeeAdapter(employees, getContext());
         rv_listEmpl.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        String text = s;
+        adapter.filter(text);
+        return false;
     }
 }

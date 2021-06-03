@@ -17,34 +17,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/edtSearchEmpl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="3"
-            android:background="@drawable/bovien2"
-            android:ems="10"
-            android:hint="Employee ID"
-            android:inputType="textPersonName"
-            android:padding="10dp" />
-
-        <Button
-            android:id="@+id/SearchEmpBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Tìm"
-            android:textSize="14sp"
-            app:cornerRadius="20dp"
-            app:icon="@drawable/ic_baseline_search_24"
-            app:iconPadding="3dp" />
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchEmpl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bovien2" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_empl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bovien2"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
