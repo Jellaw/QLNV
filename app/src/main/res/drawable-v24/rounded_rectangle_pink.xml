@@ -10,8 +10,8 @@ android:shape="rectangle">
 
 <gradient
     android:angle="45"
-    android:endColor="#E35887"
-    android:startColor="#910937"
+    android:endColor="#4CAF50"
+    android:startColor="#009688"
     android:type="linear" />
 
 <!--If your shape requires only one solid color-->

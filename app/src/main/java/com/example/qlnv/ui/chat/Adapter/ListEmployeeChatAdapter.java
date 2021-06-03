@@ -70,14 +70,14 @@ public class ListEmployeeChatAdapter extends RecyclerView.Adapter<ListEmployeeCh
         holder.tv_position.setText("Chức vụ: "+listEmpl.get(position).getPosition());
 
 
-        int idEmpl = listEmpl.get(position).getId();
+        int idAccEmpl = listEmpl.get(position).getAccid();
         String nameUser = listEmpl.get(position).getName();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ChattingActivity.class);
                 holder.itemView.setBackgroundColor(Color.parseColor("#80EDEAEA"));
-                intent.putExtra("idEmpl",""+ idEmpl);
+                intent.putExtra("idAccEmpl",""+ idAccEmpl);
                 intent.putExtra("nameUser", nameUser);
                 intent.putExtra("accid",""+ accid);
                 context.startActivity(intent);

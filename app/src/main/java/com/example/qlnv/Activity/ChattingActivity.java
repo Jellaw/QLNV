@@ -83,12 +83,12 @@ public class ChattingActivity extends AppCompatActivity implements MqttCallback 
         //=================chia luồng chat giữa các nhân viên========================================================
         i = getIntent();
         chat_fr_name.setText(i.getStringExtra("nameUser"));
-        int idEmpl = Integer.parseInt(i.getStringExtra("idEmpl"));
+        int idAccEmpl = Integer.parseInt(i.getStringExtra("idAccEmpl"));
         int accid = Integer.parseInt(i.getStringExtra("accid"));
-        if (accid>idEmpl){
-            TOPIC = mainTOPIC + accid + i.getStringExtra("idEmpl");
+        if (accid>idAccEmpl){
+            TOPIC = mainTOPIC + accid + i.getStringExtra("idAccEmpl");
         } else {
-            TOPIC = mainTOPIC + i.getStringExtra("idEmpl")+ accid ;
+            TOPIC = mainTOPIC + i.getStringExtra("idAccEmpl")+ accid ;
         }
         Log.v("TOPIC", ""+TOPIC);
         //===========================================================================================================
