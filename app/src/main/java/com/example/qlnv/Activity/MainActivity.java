@@ -24,6 +24,7 @@ import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
 import com.example.qlnv.ui.chat.ChatFragment;
 import com.example.qlnv.ui.home.Dialog.EmployeeInforDialog;
+import com.example.qlnv.utils.Utils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         //================================================================================================
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.31.38:8080/api/")
+                .baseUrl(Utils.IP)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

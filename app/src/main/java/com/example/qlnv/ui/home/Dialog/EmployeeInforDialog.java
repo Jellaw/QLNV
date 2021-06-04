@@ -24,6 +24,7 @@ import com.example.qlnv.Activity.model.Account;
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
+import com.example.qlnv.utils.Utils;
 
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class EmployeeInforDialog extends Dialog {
         });
         reloadImg.setOnClickListener(view -> {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.31.38:8080/api/")
+                    .baseUrl(Utils.IP)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -107,7 +108,7 @@ public class EmployeeInforDialog extends Dialog {
         });
         accImg.setOnClickListener(view -> {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.31.38:8080/api/")
+                    .baseUrl(Utils.IP)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -129,7 +130,7 @@ public class EmployeeInforDialog extends Dialog {
         });
         delImg.setOnClickListener(view -> {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.31.38:8080/api/")
+                    .baseUrl(Utils.IP)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

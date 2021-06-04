@@ -19,6 +19,7 @@ import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
 import com.example.qlnv.ui.chat.Adapter.ListEmployeeChatAdapter;
 import com.example.qlnv.ui.home.Adapter.ListEmployeeAdapter;
+import com.example.qlnv.utils.Utils;
 
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
         init(view);
          accid = ((MainActivity)getActivity()).accid;
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.31.38:8080/api/")
+                .baseUrl(Utils.IP)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

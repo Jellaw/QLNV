@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.qlnv.Activity.model.Account;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
+import com.example.qlnv.utils.Utils;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         init();
         Retrofit retrofitAcc = new Retrofit.Builder()
-                .baseUrl("http://192.168.31.38:8080/api/")
+                .baseUrl(Utils.IP)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         jsonPlaceHolderApiACC = retrofitAcc.create(JsonPlaceHolderAPI.class);

@@ -20,6 +20,7 @@ import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
 import com.example.qlnv.ui.home.Adapter.ListEmployeeAdapter;
+import com.example.qlnv.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class StatisticsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         init(view);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.31.38:8080/api/")
+                .baseUrl(Utils.IP)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
