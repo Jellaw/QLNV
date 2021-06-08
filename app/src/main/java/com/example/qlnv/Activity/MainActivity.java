@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
     public String position;
+    public int check_login_google;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         //================================================================================================
         i = getIntent();
         accid = i.getIntExtra("Acc_id",0);
+        check_login_google = i.getIntExtra("LoginGG",0);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,6 +177,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         avaView = (CircleImageView) v.findViewById(R.id.avaView);
     }
     private void Logout(){
+        if (check_login_google==1){
+            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            if (status.isSuccess()){
+                                backToLoginActivity();
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Session not close", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        } else {
+            backToLoginActivity();
+        }
+    }
+    private void backToLoginActivity(){
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();

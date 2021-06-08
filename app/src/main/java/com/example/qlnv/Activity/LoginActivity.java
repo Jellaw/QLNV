@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void gotoProfile(){
         Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("LoginGG", 1);
         startActivity(intent);
         finish();
     }
