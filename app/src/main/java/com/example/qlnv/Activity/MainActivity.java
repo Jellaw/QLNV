@@ -50,6 +50,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +58,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    private ImageView avaView;
+    private CircleImageView avaView;
     private TextView accName;
     private TextView accGmail;
     private AppBarConfiguration mAppBarConfiguration;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public int accid;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
+    public String position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     if (accid==employee.getAccid()){
                         accGmail.setText(employee.getEmail());
                         accName.setText(employee.getName());
+                        position = employee.getPosition();
                     }
                 }
             }
@@ -169,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void initHeaderNavigation(View v){
         accName = (TextView)v.findViewById(R.id.accName);
         accGmail = (TextView)v.findViewById(R.id.accGmail);
-        avaView = (ImageView) v.findViewById(R.id.avaView);
+        avaView = (CircleImageView) v.findViewById(R.id.avaView);
     }
     private void Logout(){
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -236,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             accName.setText(account.getDisplayName());
             accGmail.setText(account.getEmail());
             try{
-                Glide.with(this).load(account.getPhotoUrl()).into(avaView);
+                Glide.with(this).load(account.getPhotoUrl()).centerCrop().into(avaView);
             }catch (NullPointerException e){
                 Toast.makeText(this,"image not found",Toast.LENGTH_LONG).show();
             }

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.qlnv.Activity.MainActivity;
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
@@ -92,7 +93,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     private void initRecyclerView(List<Employee> employees) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_listEmpl.setLayoutManager(layoutManager);
-        adapter = new ListEmployeeAdapter(employees, getContext());
+        adapter = new ListEmployeeAdapter(employees, getContext(),(MainActivity)getActivity());
         rv_listEmpl.setAdapter(adapter);
     }
 

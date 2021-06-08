@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.qlnv.Activity.MainActivity;
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.ui.home.Dialog.EmployeeInforDialog;
@@ -28,9 +29,11 @@ public class ListEmployeeAdapter extends RecyclerView.Adapter<ListEmployeeAdapte
     Context context;
     int checkGender=0;
     Employee employee;
-    public ListEmployeeAdapter(List<Employee> listEmpl, Context context) {
+    MainActivity mainActivity;
+    public ListEmployeeAdapter(List<Employee> listEmpl, Context context, MainActivity mainActivity) {
         this.listEmpl = listEmpl;
         this.context = context;
+        this.mainActivity = mainActivity;
         this.listEmplSearch.addAll(listEmpl);
     }
 
@@ -66,14 +69,15 @@ public class ListEmployeeAdapter extends RecyclerView.Adapter<ListEmployeeAdapte
         holder.tv_position.setText("Chức vụ: "+listEmpl.get(position).getPosition());
 
 
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                employee = listEmpl.get(position);
-                OpenDialogClicked(context);
-            }
-        });
+        if(mainActivity.position.equals("Nhân viên")==false){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    employee = listEmpl.get(position);
+                    OpenDialogClicked(context);
+                }
+            });
+        }
     }
 
 

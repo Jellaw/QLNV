@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.qlnv.Activity.MainActivity;
 import com.example.qlnv.Activity.model.Employee;
 import com.example.qlnv.R;
 import com.example.qlnv.remoteAPI.JsonPlaceHolderAPI;
@@ -104,7 +105,7 @@ public class StatisticsFragment extends Fragment {
     private void initRecyclerView(List<Employee> employees) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_listEmpl.setLayoutManager(layoutManager);
-        ListEmployeeAdapter adapter = new ListEmployeeAdapter(employees, getContext());
+        ListEmployeeAdapter adapter = new ListEmployeeAdapter(employees, getContext(),(MainActivity)getActivity());
         rv_listEmpl.setAdapter(adapter);
     }
 }
