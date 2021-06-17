@@ -45,6 +45,11 @@ public class RegisterEmplActivity extends AppCompatActivity {
         i = getIntent();
         idAcc.setText(i.getStringExtra("create_acc_id"));
         idAcc.setEnabled(false);
+        if(i.getStringExtra("nameGG")!=null&&i.getStringExtra("emailGG")!=null){
+            name.setText(i.getStringExtra("nameGG"));
+            email.setText(i.getStringExtra("emailGG"));
+            idAcc.setText(i.getStringExtra("idGG").substring(0,4));
+        }
         backBtn.setOnClickListener(view -> {
             onBackPressed();
         });

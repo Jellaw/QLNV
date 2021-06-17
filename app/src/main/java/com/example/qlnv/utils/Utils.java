@@ -1,5 +1,5 @@
 package com.example.qlnv.utils;
 
 public class Utils {
-    public static String IP = " http://172.16.222.202:8080/api/";
+    public static String IP = " http://192.168.31.38:8080/api/";
 }
