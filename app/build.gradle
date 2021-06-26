@@ -54,4 +54,6 @@ dependencies {
         exclude module: 'support-v4'
     }
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'com.stringee.sdk.android:stringee-android-sdk:1.7.2'
+    implementation 'com.android.volley:volley:1.2.0'
 }

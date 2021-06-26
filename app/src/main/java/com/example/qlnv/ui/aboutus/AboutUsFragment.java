@@ -36,24 +36,9 @@ public class AboutUsFragment extends Fragment {
                 .load(R.drawable.mduy)
                 .centerCrop()
                 .into(img1);
-        Glide.with(getContext())
-                .load(R.drawable.ngocanh)
-                .centerCrop()
-                .into(img2);
-        Glide.with(getContext())
-                .load(R.drawable.binh)
-                .centerCrop()
-                .into(img3);
-        Glide.with(getContext())
-                .load(R.drawable.hson)
-                .centerCrop()
-                .into(img4);
 
     }
     private void init(View v){
         img1=v.findViewById(R.id.manhduy);
-        img2=v.findViewById(R.id.ngocanh);
-        img3=v.findViewById(R.id.thanhbinh);
-        img4=v.findViewById(R.id.hongson);
     }
 }

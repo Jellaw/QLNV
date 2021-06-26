@@ -1,5 +1,8 @@
 package com.example.qlnv.utils;
 
+
 public class Utils {
-    public static String IP = " http://192.168.31.38:8080/api/";
+    public static String IP = "http://192.168.31.38:8080/api/";
+    public static String TOKEN_STRINGEE_7 = "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS011ZUhnZDRYd1BoRkM1RFNKYlhxa0llcks2ekxjVEZJLTE2MjQ3MzgzODkiLCJpc3MiOiJTS011ZUhnZDRYd1BoRkM1RFNKYlhxa0llcks2ekxjVEZJIiwiZXhwIjoxNjI3MzMwMzg5LCJ1c2VySWQiOiI3In0.xFOb8NfHyRgeky6GEK_WhcyOP5aa2NjZQjnv4PL6DlQ";
+    public static String TOKEN_STRINGEE_25 = "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS011ZUhnZDRYd1BoRkM1RFNKYlhxa0llcks2ekxjVEZJLTE2MjQ3MzY4MzEiLCJpc3MiOiJTS011ZUhnZDRYd1BoRkM1RFNKYlhxa0llcks2ekxjVEZJIiwiZXhwIjoxNjI3MzI4ODMxLCJ1c2VySWQiOiIyNSJ9.6yQjuizPOKDSY3IftsLb6hFQ5j_YobK16iZUJnyYMOc";
 }

@@ -1,19 +1,24 @@
 package com.example.qlnv.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Notification;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +26,12 @@ import android.widget.Toast;
 import com.example.qlnv.Activity.Adapter.MessageListAdapter;
 import com.example.qlnv.Activity.model.UserMessage;
 import com.example.qlnv.R;
+import com.example.qlnv.utils.Utils;
+import com.stringee.StringeeClient;
+import com.stringee.call.StringeeCall;
+import com.stringee.call.StringeeCall2;
+import com.stringee.exception.StringeeError;
+import com.stringee.listener.StringeeConnectionListener;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -30,11 +41,14 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class ChattingActivity extends AppCompatActivity implements MqttCallback {
     private RecyclerView mMessageRecycler;
@@ -44,6 +58,11 @@ public class ChattingActivity extends AppCompatActivity implements MqttCallback 
     TextView chat_fr_name;
     Intent i;
     String  TOPIC;
+    //=======stringee video call api ======================
+    private String token = Utils.TOKEN_STRINGEE_7;
+    public static StringeeClient stringeeClient;
+    public static Map<String, StringeeCall> callMap = new HashMap<>();
+    ImageView calling;
     //=================================
     private static final String BROKER_URI = "tcp://broker.hivemq.com:1883";
     String mainTOPIC = "testtopic/";
@@ -66,7 +85,8 @@ public class ChattingActivity extends AppCompatActivity implements MqttCallback 
         setContentView(R.layout.activity_chatting);
         chatbox=findViewById(R.id.layout_chatbox);
         chattext=findViewById(R.id.edittext_chatbox);
-
+        textMessage = (EditText) findViewById(R.id.edittext_chatbox);
+        calling = findViewById(R.id.call_btn);
 
         //=======RecycleView=====================================================
         mMessageRecycler = (RecyclerView) findViewById(R.id.messenger_view);
@@ -78,8 +98,8 @@ public class ChattingActivity extends AppCompatActivity implements MqttCallback 
         mMessageRecycler.setAdapter(mMessageAdapter);
 
         //=========================================================================
-        // get text elements to re-use them
-        textMessage = (EditText) findViewById(R.id.edittext_chatbox);
+
+
         //=================chia luồng chat giữa các nhân viên========================================================
         i = getIntent();
         chat_fr_name.setText(i.getStringExtra("nameUser"));
@@ -91,6 +111,25 @@ public class ChattingActivity extends AppCompatActivity implements MqttCallback 
             TOPIC = mainTOPIC + i.getStringExtra("idAccEmpl")+ accid ;
         }
         Log.v("TOPIC", ""+TOPIC);
+        //===========================================================================================================
+
+
+        //======================setAction call button=======================================================
+        initStringee();
+
+        requirePermission();
+
+        calling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChattingActivity.this, OutgoingCallActivity.class);
+                intent.putExtra("from", stringeeClient.getUserId());
+                intent.putExtra("to", i.getStringExtra("idAccEmpl"));
+                startActivity(intent);
+            }
+        });
+
+
         //===========================================================================================================
         // when the activity is created call to connect to the broker
         connect();
@@ -232,5 +271,85 @@ public class ChattingActivity extends AppCompatActivity implements MqttCallback 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         int notificationId = 1;
         notificationManager.notify(notificationId, notification);
+    }
+
+    private void requirePermission() {
+        ActivityCompat.requestPermissions(ChattingActivity.this, new String[]{
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO
+        }, 1);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            } else {
+                Toast.makeText(ChattingActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+    }
+    private void initStringee() {
+        stringeeClient = new StringeeClient(ChattingActivity.this);
+        stringeeClient.setConnectionListener(new StringeeConnectionListener() {
+            @Override
+            public void onConnectionConnected(StringeeClient stringeeClient, boolean b) {
+                // do something when connected to Stringee server
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onConnectionDisconnected(StringeeClient stringeeClient, boolean b) {
+                // do something when disconnected to Stringee server
+            }
+
+            @Override
+            public void onIncomingCall(StringeeCall stringeeCall) {
+                // do something when get incoming call
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callMap.put(stringeeCall.getCallId(), stringeeCall);
+                        Intent intent = new Intent(ChattingActivity.this, IncomingCallActivity.class);
+                        intent.putExtra("call_id", stringeeCall.getCallId());
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onIncomingCall2(StringeeCall2 stringeeCall2) {
+
+            }
+
+
+            @Override
+            public void onConnectionError(StringeeClient stringeeClient, StringeeError stringeeError) {
+                // do something when connect to Stringee server in error
+            }
+
+            @Override
+            public void onRequestNewToken(StringeeClient stringeeClient) {
+                // do something when your token is out of date
+            }
+
+            @Override
+            public void onCustomMessage(String s, JSONObject jsonObject) {
+
+            }
+
+            @Override
+            public void onTopicMessage(String s, JSONObject jsonObject) {
+
+            }
+        });
+
+        stringeeClient.connect(token);
     }
 }
