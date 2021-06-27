@@ -59,7 +59,7 @@ public class ChattingActivity extends AppCompatActivity implements MqttCallback 
     Intent i;
     String  TOPIC;
     //=======stringee video call api ======================
-    private String token = Utils.TOKEN_STRINGEE_7;
+    private String token = Utils.TOKEN_STRINGEE_1104;
     public static StringeeClient stringeeClient;
     public static Map<String, StringeeCall> callMap = new HashMap<>();
     ImageView calling;
@@ -291,7 +291,7 @@ public class ChattingActivity extends AppCompatActivity implements MqttCallback 
         }
     }
     private void initStringee() {
-        stringeeClient = new StringeeClient(ChattingActivity.this);
+        stringeeClient = new StringeeClient(this);
         stringeeClient.setConnectionListener(new StringeeConnectionListener() {
             @Override
             public void onConnectionConnected(StringeeClient stringeeClient, boolean b) {
